@@ -208,12 +208,9 @@ class TuyaDevice(pytuya.TuyaListener, pytuya.ContextualLogger):
             try:
                 try:
                     self.debug("Retrieving initial state")
-                    if hasattr(self, "_bypass_status") and self._bypass_status:
-                    status = self._default_status
-                else:
                     status = await self._interface.status()
-                        if status is None:
-                            raise Exception("Failed to retrieve status")
+                    if status is None:
+                        raise Exception("Failed to retrieve status")
 
                     self._interface.start_heartbeat()
                     self.status_updated(status)
